@@ -76,6 +76,8 @@
       </v-container>
     </v-content>
 
+    <add-recipe-dialog v-model="drawer"/>
+
     <v-footer app>
       <span>&copy; 2019</span>
     </v-footer>
@@ -83,12 +85,18 @@
 </template>
 
 <script>
+import addRecipeDialog from './components/add-recipe-dialog.vue';
+
 export default {
+  components: {
+    'add-recipe-dialog': addRecipeDialog,
+  },
+
   props: {
     source: String,
   },
   data: () => ({
-    drawer: null,
+    drawer: true,
   }),
   created() {
     this.$vuetify.theme.dark = true;
