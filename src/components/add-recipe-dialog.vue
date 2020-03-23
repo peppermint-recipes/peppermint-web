@@ -12,6 +12,7 @@
             <v-row>
               <v-col>
                 <v-text-field
+                  id="recipe-name-field"
                   v-model="recipe.name"
                   autofocus
                   outlined
@@ -21,18 +22,21 @@
             <v-row>
               <v-col>
                 <v-text-field
+                  id='recipe-yield-field'
                   v-model="recipe.yield"
                   outlined
                   label="Yield" />
               </v-col>
               <v-col>
                 <v-text-field
+                  id='recipe-active-time-field'
                   v-model="recipe.activeTime"
                   outlined
                   label="Time active" />
               </v-col>
               <v-col>
                 <v-text-field
+                  id='recipe-total-time-field'
                   v-model="recipe.totalTime"
                   outlined
                   label="Time total" />
@@ -41,6 +45,7 @@
             <v-row>
               <v-col>
                 <v-textarea
+                  id='recipe-ingredients-field'
                   v-model="recipe.ingredients"
                   auto-grow
                   outlined
@@ -50,6 +55,7 @@
             <v-row>
               <v-col>
                 <v-textarea
+                  id='recipe-instructions-field'
                   v-model="recipe.instructions"
                   auto-grow
                   outlined
@@ -60,10 +66,16 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="primary" @click="close">
+          <v-btn
+            id="close-recipe-button"
+            color="primary"
+            @click="close">
             Close
           </v-btn>
-          <v-btn color="primary" @click="saveRecipe">
+          <v-btn
+            id="save-recipe-button"
+            color="primary"
+            @click="saveRecipe">
             Save
           </v-btn>
         </v-card-actions>
