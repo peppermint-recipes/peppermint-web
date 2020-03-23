@@ -23,10 +23,6 @@ describe('AddRecipeDialog.vue', () => {
     expect(instructionsField.attributes('value')).toBe('');
   });
 
-  it('will only send form when name, ingredients and instructions are set', () => {
-
-  });
-
   it('remove data after close', () => {
     const wrapper = shallowMount(AddRecipeDialog, { propsData: { value: true } });
     wrapper.setData({
