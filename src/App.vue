@@ -52,7 +52,9 @@
                   target="_blank"
                   v-on="on"
                 >
-                  <v-icon large>mdi-code-tags</v-icon>
+                  <v-icon large>
+                    mdi-code-tags
+                  </v-icon>
                 </v-btn>
               </template>
               <span>Source</span>
@@ -66,7 +68,9 @@
                   target="_blank"
                   v-on="on"
                 >
-                  <v-icon large>mdi-codepen</v-icon>
+                  <v-icon large>
+                    mdi-codepen
+                  </v-icon>
                 </v-btn>
               </template>
               <span>Codepen</span>
@@ -76,7 +80,7 @@
       </v-container>
     </v-content>
 
-    <add-recipe-dialog v-model="drawer"/>
+    <add-recipe-dialog v-model="drawer" />
 
     <v-footer app>
       <span>&copy; 2019</span>
@@ -93,7 +97,10 @@ export default {
   },
 
   props: {
-    source: String,
+    source: {
+      type: String,
+      default: '',
+    },
   },
   data: () => ({
     drawer: true,

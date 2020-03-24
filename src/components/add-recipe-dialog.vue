@@ -1,6 +1,10 @@
 <template>
   <div>
-    <v-dialog v-model="showDialog" persistent max-width="500px">
+    <v-dialog
+      v-model="showDialog"
+      persistent
+      max-width="500px"
+    >
       <v-card>
         <v-card-title>
           <span class="headline">
@@ -16,50 +20,56 @@
                   v-model="recipe.name"
                   autofocus
                   outlined
-                  label="Name" />
+                  label="Name"
+                />
               </v-col>
             </v-row>
             <v-row>
               <v-col>
                 <v-text-field
-                  id='recipe-yield-field'
+                  id="recipe-yield-field"
                   v-model="recipe.yield"
                   outlined
-                  label="Yield" />
+                  label="Yield"
+                />
               </v-col>
               <v-col>
                 <v-text-field
-                  id='recipe-active-time-field'
+                  id="recipe-active-time-field"
                   v-model="recipe.activeTime"
                   outlined
-                  label="Time active" />
+                  label="Time active"
+                />
               </v-col>
               <v-col>
                 <v-text-field
-                  id='recipe-total-time-field'
+                  id="recipe-total-time-field"
                   v-model="recipe.totalTime"
                   outlined
-                  label="Time total" />
+                  label="Time total"
+                />
               </v-col>
             </v-row>
             <v-row>
               <v-col>
                 <v-textarea
-                  id='recipe-ingredients-field'
+                  id="recipe-ingredients-field"
                   v-model="recipe.ingredients"
                   auto-grow
                   outlined
-                  label="Ingredients" />
+                  label="Ingredients"
+                />
               </v-col>
             </v-row>
             <v-row>
               <v-col>
                 <v-textarea
-                  id='recipe-instructions-field'
+                  id="recipe-instructions-field"
                   v-model="recipe.instructions"
                   auto-grow
                   outlined
-                  label="Instructions" />
+                  label="Instructions"
+                />
               </v-col>
             </v-row>
           </v-form>
@@ -69,13 +79,15 @@
           <v-btn
             id="close-recipe-button"
             color="primary"
-            @click="close">
+            @click="close"
+          >
             Close
           </v-btn>
           <v-btn
             id="save-recipe-button"
             color="primary"
-            @click="saveRecipe">
+            @click="saveRecipe"
+          >
             Save
           </v-btn>
         </v-card-actions>
