@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import createRecipe from '../services/recipeService';
+import { createRecipe } from '../services/recipeService';
 
 export default {
   props: {

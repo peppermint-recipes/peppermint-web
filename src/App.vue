@@ -6,12 +6,15 @@
       clipped
     >
       <v-list dense>
-        <v-list-item link>
+        <v-list-item
+          link
+          to="/recipes"
+        >
           <v-list-item-action>
-            <v-icon>mdi-view-dashboard</v-icon>
+            <v-icon>mdi-pot-mix</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Dashboard</v-list-item-title>
+            <v-list-item-title>Recipes</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link>
@@ -34,74 +37,18 @@
     </v-app-bar>
 
     <v-content>
-      <v-container
-        class="fill-height"
-        fluid
-      >
-        <v-row
-          align="center"
-          justify="center"
-        >
-          <v-col class="shrink">
-            <v-tooltip right>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  :href="source"
-                  icon
-                  large
-                  target="_blank"
-                  v-on="on"
-                >
-                  <v-icon large>
-                    mdi-code-tags
-                  </v-icon>
-                </v-btn>
-              </template>
-              <span>Source</span>
-            </v-tooltip>
-            <v-tooltip right>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  icon
-                  large
-                  href="https://codepen.io/johnjleider/pen/bXNzZL"
-                  target="_blank"
-                  v-on="on"
-                >
-                  <v-icon large>
-                    mdi-codepen
-                  </v-icon>
-                </v-btn>
-              </template>
-              <span>Codepen</span>
-            </v-tooltip>
-          </v-col>
-        </v-row>
-      </v-container>
+      <router-view />
     </v-content>
 
-    <add-recipe-dialog v-model="drawer" />
-
     <v-footer app>
-      <span>&copy; 2019</span>
+      <span>&copy; 2020</span>
     </v-footer>
   </v-app>
 </template>
 
 <script>
-import addRecipeDialog from './components/add-recipe-dialog.vue';
 
 export default {
-  components: {
-    'add-recipe-dialog': addRecipeDialog,
-  },
-
-  props: {
-    source: {
-      type: String,
-      default: '',
-    },
-  },
   data: () => ({
     drawer: true,
   }),
