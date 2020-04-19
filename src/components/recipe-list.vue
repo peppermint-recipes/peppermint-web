@@ -9,15 +9,10 @@
           md="3"
           xl="2"
         >
-          <v-hover
-            v-slot:default="{ hover }"
-          >
-            <recipe-preview-card
-              class="pa-3"
-              :hovered="hover"
-              :recipe="recipe"
-            />
-          </v-hover>
+          <recipe-preview-card
+            class="recipe-preview-card pa-3"
+            :recipe="recipe"
+          />
         </v-col>
       </v-row>
     </v-container>

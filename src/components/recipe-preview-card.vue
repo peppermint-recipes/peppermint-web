@@ -2,10 +2,9 @@
   <div>
     <v-card
       shaped
-      :outlined="hovered"
       max-width="250"
       min-height="280"
-      :class="{ 'on-hover': hovered }"
+      :to="{ name:'recipe', params: { id: recipe.id }}"
     >
       <v-img
         src="../assets/peppermint.jpg"
@@ -16,6 +15,7 @@
       <v-card-subtitle>
         <v-chip
           v-if="recipe.calories"
+          class="calories-chip"
           small
           color="primary"
         >
@@ -23,7 +23,7 @@
         </v-chip>
         <v-chip
           v-if="recipe.totalTime"
-          class="mx-2"
+          class="total-time-chip mx-2"
           color="primary"
           small
         >
@@ -37,10 +37,6 @@
 <script>
 export default {
   props: {
-    hovered: {
-      type: Boolean,
-      default: false,
-    },
     recipe: {
       type: Object,
       required: true,

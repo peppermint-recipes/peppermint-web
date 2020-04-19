@@ -1,14 +1,20 @@
-import { shallowMount } from '@vue/test-utils';
-import AddRecipeDialog from '@/components/add-recipe-dialog.vue';
+import { shallowMount, mount } from '@vue/test-utils';
+import recipeDetail from '@/components/recipe-detail.vue';
 
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 
+jest.mock('@/services/recipeService');
+
 Vue.use(Vuetify);
 
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('AddRecipeDialog.vue', () => {
-  it('inititalizes with empty data fields', () => {
-    const wrapper = shallowMount(AddRecipeDialog, { propsData: { value: true } });
+  it('inititalizes with empty data fields', async () => {
+    const wrapper = shallowMount(recipeDetail);
     const nameField = wrapper.find('#recipe-name-field');
     const yieldField = wrapper.find('#recipe-yield-field');
     const timeActiveField = wrapper.find('#recipe-active-time-field');
@@ -24,9 +30,10 @@ describe('AddRecipeDialog.vue', () => {
   });
 
   it('remove data after close', () => {
-    const wrapper = shallowMount(AddRecipeDialog, { propsData: { value: true } });
+    const wrapper = shallowMount(recipeDetail, { propsData: { value: true } });
     wrapper.setData({
       recipe: {
+        id: 1,
         name: 'Test',
         yield: '2',
         activeTime: '1h',
@@ -35,7 +42,7 @@ describe('AddRecipeDialog.vue', () => {
         instructions: '1. mix test',
       },
     });
-    const saveButton = wrapper.find('#close-recipe-button');
+    const saveButton = wrapper.find('#delete-recipe-button');
     saveButton.trigger('click');
     setTimeout(() => {
       expect(wrapper.vm.name).toBe('');
@@ -48,9 +55,10 @@ describe('AddRecipeDialog.vue', () => {
   });
 
   it('remove data after save', () => {
-    const wrapper = shallowMount(AddRecipeDialog, { propsData: { value: true } });
+    const wrapper = shallowMount(recipeDetail, { propsData: { value: true } });
     wrapper.setData({
       recipe: {
+        id: 1,
         name: 'Test',
         yield: '2',
         activeTime: '1h',
@@ -69,5 +77,34 @@ describe('AddRecipeDialog.vue', () => {
       expect(wrapper.vm.ingredients).toBe('');
       expect(wrapper.vm.instructions).toBe('');
     }, 400);
+  });
+
+
+  it('should go to recipes, when a recipe is deleted', () => {
+    const mocks = {
+      $router: {
+        push: jest.fn(),
+      },
+    };
+    const wrapper = mount(recipeDetail, {
+      mocks,
+    });
+    const deleteButton = wrapper.find('#delete-recipe-button');
+    deleteButton.trigger('click');
+    expect(mocks.$router.push).toHaveBeenCalledWith({ name: 'recipes' });
+  });
+
+  it('should go to recipes, when back button is pressed', () => {
+    const mocks = {
+      $router: {
+        push: jest.fn(),
+      },
+    };
+    const wrapper = mount(recipeDetail, {
+      mocks,
+    });
+    const deleteButton = wrapper.find('#go-back-to-recipes-button');
+    deleteButton.trigger('click');
+    expect(mocks.$router.push).toHaveBeenCalledWith({ name: 'recipes' });
   });
 });
