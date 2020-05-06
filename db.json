@@ -111,5 +111,14 @@
       "instructions": "",
       "id": 18
     }
-  ]
+  ],
+  "week": {
+    "monday": {},
+    "tuesday": {},
+    "wednesday": {},
+    "thursday": {},
+    "friday": {},
+    "saturday": {},
+    "sunday": {}
+  }
 }
