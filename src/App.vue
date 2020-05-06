@@ -17,6 +17,7 @@
             <v-list-item-title>New Recipe</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+
         <v-list-item
           link
           to="/recipes"
@@ -26,6 +27,18 @@
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Recipes</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item
+          link
+          to="/week"
+        >
+          <v-list-item-action>
+            <v-icon>mdi-calendar</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Week</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
