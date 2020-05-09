@@ -20,6 +20,11 @@ const routes = [
     name: 'recipes',
     component: () => import('@/components/recipe-list.vue'),
   },
+  {
+    path: '/week',
+    name: 'week',
+    component: () => import('@/components/weekly-menu/week.vue'),
+  },
 ];
 
 const router = new VueRouter({
