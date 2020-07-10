@@ -33,10 +33,10 @@
           <v-row>
             <v-col>
               <v-text-field
-                id="recipe-yield-field"
-                v-model="recipe.yield"
+                id="recipe-servings-field"
+                v-model="recipe.servings"
                 outlined
-                label="Yield"
+                label="Servings"
               />
             </v-col>
             <v-col>
@@ -128,7 +128,7 @@ export default {
         if (!value) {
           this.recipe = {
             name: '',
-            yield: '',
+            servings: '',
             activeTime: '',
             totalTime: '',
             ingredients: '',
