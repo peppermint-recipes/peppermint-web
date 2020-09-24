@@ -86,6 +86,14 @@
           v-if="id !== 'new'"
           id="delete-recipe-button"
           color="primary"
+          @click="addToShoppingList"
+        >
+          Add To Shopping List
+        </v-btn>
+        <v-btn
+          v-if="id !== 'new'"
+          id="delete-recipe-button"
+          color="primary"
           @click="deleteCurrentRecipe"
         >
           Delete
@@ -104,6 +112,7 @@
 
 <script>
 import { createRecipe, getRecipeById, deleteRecipe } from '../services/recipeService';
+import { addItem } from '../services/shoppingListService';
 
 export default {
   props: {
@@ -152,6 +161,9 @@ export default {
     },
     goToRecipes() {
       this.$router.push({ name: 'recipes' });
+    },
+    addToShoppingList() {
+      addItem(this.recipe);
     },
   },
 };
