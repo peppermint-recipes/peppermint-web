@@ -7,12 +7,12 @@
     >
       <v-list-item-content>
         <v-list-item-title>
-          <span style="text-decoration:line-through">
+          <span :style="style">
             {{ item.amount }} {{ item.unit }} {{ item.ingredient }}
           </span>
         </v-list-item-title>
         <v-list-item-subtitle>
-          <span style="text-decoration:line-through">
+          <span :style="style">
             {{ item.recipe }}
           </span>
         </v-list-item-subtitle>
@@ -34,6 +34,11 @@ export default {
     return {
       active: false,
     };
+  },
+  computed: {
+    style() {
+      return this.active ? 'text-decoration:line-through' : '';
+    },
   },
   methods: {
     toggle() {

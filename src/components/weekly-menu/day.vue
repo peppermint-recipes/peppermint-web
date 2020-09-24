@@ -5,34 +5,37 @@
     </v-card-title>
 
     <recipe-week-item
-      v-model="day.breakfast"
+      :value="day.breakfast"
       class="item"
       name="Breakfast"
+      @input="onBreakfastChanged"
     />
 
     <hr>
 
     <recipe-week-item
-      v-model="day.lunch"
+      :value="day.lunch"
       class="item"
       name="Lunch"
+      @input="onLunchChanged"
     />
 
     <hr>
 
-
     <recipe-week-item
-      v-model="day.dinner"
+      :value="day.dinner"
       class="item"
       name="Dinner"
+      @input="onDinnerChanged"
     />
 
     <hr>
 
     <recipe-week-item
-      v-model="day.snacks"
+      :value="day.snacks"
       class="item"
       name="Snacks"
+      @input="onSnacksChanged"
     />
 
     <hr>
@@ -69,6 +72,30 @@ export default {
     day: {
       get() { return this.value; },
       set(day) { this.$emit('input', day); },
+    },
+  },
+
+  methods: {
+    onSnacksChanged(input) {
+      const updatedDay = JSON.parse(JSON.stringify(this.value));
+      updatedDay.snacks = input;
+      this.day = updatedDay;
+    },
+    onDinnerChanged(input) {
+      const updatedDay = JSON.parse(JSON.stringify(this.value));
+      updatedDay.dinner = input;
+      this.day = updatedDay;
+    },
+    onLunchChanged(input) {
+      console.log(this.value);
+      const updatedDay = JSON.parse(JSON.stringify(this.value));
+      updatedDay.lunch = input;
+      this.day = updatedDay;
+    },
+    onBreakfastChanged(input) {
+      const updatedDay = JSON.parse(JSON.stringify(this.value));
+      updatedDay.breakfast = input;
+      this.day = updatedDay;
     },
   },
 };

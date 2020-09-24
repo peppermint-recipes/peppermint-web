@@ -1,5 +1,15 @@
 <template>
   <div>
+    <v-toolbar dark>
+      <v-spacer />
+      <v-btn
+        color="primary"
+        @click="clearShoppingList"
+      >
+        Clear List
+      </v-btn>
+    </v-toolbar>
+
     <v-list>
       <list-item
         v-for="(item, index) in shoppingList"
@@ -11,7 +21,7 @@
 </template>
 
 <script>
-import { getItems } from '../../services/shoppingListService';
+import { getItems, removeAllItems } from '../../services/shoppingListService';
 import ingredientsParser from '../../services/ingredientParser';
 import listItem from './list-item.vue';
 
@@ -59,7 +69,13 @@ export default {
       },
     );
     this.shoppingList = filtered;
-    console.log(filtered);
+  },
+
+  methods: {
+    async clearShoppingList() {
+      await removeAllItems();
+      this.recipeList = await getItems();
+    },
   },
 
 };

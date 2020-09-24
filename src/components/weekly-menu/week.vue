@@ -18,6 +18,10 @@
                 <v-btn @click="saveWeek">
                   Save
                 </v-btn>
+
+                <v-btn @click="createShoppingList">
+                  Create Shoppinglist
+                </v-btn>
               </div>
             </v-col>
           </v-row>
@@ -56,6 +60,7 @@
             v-model="week.monday"
             class="day"
             weekday="Mon"
+            @input="saveWeek"
           />
         </v-col>
 
@@ -64,6 +69,7 @@
             v-model="week.tuesday"
             class="day"
             weekday="Tue"
+            @input="saveWeek"
           />
         </v-col>
 
@@ -72,6 +78,7 @@
             v-model="week.wednesday"
             class="day"
             weekday="Wed"
+            @input="saveWeek"
           />
         </v-col>
 
@@ -80,6 +87,7 @@
             v-model="week.thursday"
             class="day"
             weekday="Thu"
+            @input="saveWeek"
           />
         </v-col>
 
@@ -88,6 +96,7 @@
             v-model="week.friday"
             class="day"
             weekday="Fri"
+            @input="saveWeek"
           />
         </v-col>
 
@@ -96,6 +105,7 @@
             v-model="week.saturday"
             class="day"
             weekday="Sat"
+            @input="saveWeek"
           />
         </v-col>
 
@@ -104,6 +114,7 @@
             v-model="week.sunday"
             class="day"
             weekday="Sun"
+            @input="saveWeek"
           />
         </v-col>
       </v-row>
@@ -116,6 +127,7 @@ import draggable from 'vuedraggable';
 import day from './day.vue';
 import { getAllRecipes } from '../../services/recipeService';
 import { updateWeek, getWeek } from '../../services/weekService';
+import { addItems } from '../../services/shoppingListService';
 
 export default {
   components: {
@@ -165,11 +177,25 @@ export default {
         saturday: {},
         sunday: {},
       };
-      updateWeek(this.week);
+      this.saveWeek(this.week);
     },
     saveWeek() {
       updateWeek(this.week);
     },
+
+    createShoppingList() {
+      const recipesFromDinnertimes = [];
+      recipesFromDinnertimes.push(Object.values(this.week.monday));
+      recipesFromDinnertimes.push(Object.values(this.week.tuesday));
+      recipesFromDinnertimes.push(Object.values(this.week.wednesday));
+      recipesFromDinnertimes.push(Object.values(this.week.thursday));
+      recipesFromDinnertimes.push(Object.values(this.week.friday));
+      recipesFromDinnertimes.push(Object.values(this.week.saturday));
+      recipesFromDinnertimes.push(Object.values(this.week.sunday));
+      const recipes = recipesFromDinnertimes.flat().flat();
+      addItems(recipes);
+    },
+
   },
 };
 </script>
