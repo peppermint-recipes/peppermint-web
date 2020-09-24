@@ -39,14 +39,11 @@ export default {
 
   async created() {
     this.recipeList = await getItems();
-    console.log(this.recipeList);
     const filtered = [];
     this.recipeList.forEach(
       (recipe) => {
         const ingredients = ingredientsParser(recipe.ingredients);
         ingredients.forEach((ingredient) => {
-          console.log(filtered);
-          console.log(ingredient);
           const foundIndex = filtered.findIndex(
             (element) => element.ingredient.toLowerCase() === ingredient.ingredient.toLowerCase(),
           );

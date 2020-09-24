@@ -35,7 +35,6 @@ const parseIngredients = (ingredientsString) => {
     parsedIngredient.ingredient = copy;
     return parsedIngredient;
   });
-  // console.log(ingredients);
 
   return ingredients;
 };

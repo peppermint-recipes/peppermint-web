@@ -42,7 +42,6 @@ export default {
   },
   methods: {
     toggle() {
-      console.log('toggle');
       this.active = !this.active;
     },
   },
