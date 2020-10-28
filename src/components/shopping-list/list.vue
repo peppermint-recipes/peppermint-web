@@ -21,8 +21,7 @@
 </template>
 
 <script>
-import { getItems, removeAllItems } from '../../services/shoppingListService';
-import ingredientsParser from '../../services/ingredientParser';
+import { parseIngredients, shoppingListService } from 'peppermint-logic';
 import listItem from './list-item.vue';
 
 export default {
@@ -38,11 +37,11 @@ export default {
   },
 
   async created() {
-    this.recipeList = await getItems();
+    this.recipeList = await shoppingListService.getItems();
     const filtered = [];
     this.recipeList.forEach(
       (recipe) => {
-        const ingredients = ingredientsParser(recipe.ingredients);
+        const ingredients = parseIngredients(recipe.ingredients);
         ingredients.forEach((ingredient) => {
           const foundIndex = filtered.findIndex(
             (element) => element.ingredient.toLowerCase() === ingredient.ingredient.toLowerCase(),
@@ -70,8 +69,8 @@ export default {
 
   methods: {
     async clearShoppingList() {
-      await removeAllItems();
-      this.recipeList = await getItems();
+      await shoppingListService.removeAllItems();
+      this.recipeList = await shoppingListService.getItems();
     },
   },
 

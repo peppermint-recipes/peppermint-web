@@ -137,6 +137,15 @@
       "ingredients": "750 g Kartoffeln\n1 Dose Corned Beef\n3 Gewürzgurken, gewürfelt\n2 Zwiebeln\nRote Beete, gewürfelt\nGurkenflüssigkeit\n4 Eier\nSalz, Pfeffer\n4 Matjesfilets/Rollmöpse",
       "instructions": "1. Kartoffeln als Salzkartoffeln kochen\n2. Zwiebeln andünsten\n3. Corned Beef 3 min. mitdünsten, Gurken und roote Beete für 10 min dazu\n4. Kartoffeln etwas stampfen, Corned-Beef-Mix unterrühren und mit Gurkenwasser auf gute Konsistenz bringen.\n5. Dazu Spiegelei und Rollmöpse",
       "id": 21
+    },
+    {
+      "name": "moskau",
+      "yield": "",
+      "activeTime": "",
+      "totalTime": "",
+      "ingredients": "",
+      "instructions": "",
+      "id": 22
     }
   ],
   "week": {
@@ -173,6 +182,17 @@
           "ingredients": "d",
           "instructions": "d",
           "id": 16
+        }
+      ],
+      "breakfast": [
+        {
+          "name": "asd",
+          "yield": "d",
+          "activeTime": "d",
+          "totalTime": "d",
+          "ingredients": "d",
+          "instructions": "d",
+          "id": 15
         }
       ]
     },
@@ -211,6 +231,15 @@
       "ingredients": "d",
       "instructions": "d",
       "id": 16
+    },
+    {
+      "name": "asd",
+      "yield": "d",
+      "activeTime": "d",
+      "totalTime": "d",
+      "ingredients": "d",
+      "instructions": "d",
+      "id": 15
     },
     {
       "name": "asd",

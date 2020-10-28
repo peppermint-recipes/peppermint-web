@@ -20,8 +20,8 @@
 </template>
 
 <script>
+import { recipeService } from 'peppermint-logic';
 import recipePreviewCard from './recipe-preview-card.vue';
-import { getAllRecipes } from '../services/recipeService';
 
 export default {
   components: {
@@ -36,7 +36,7 @@ export default {
   },
 
   async created() {
-    this.recipes = await getAllRecipes();
+    this.recipes = await recipeService.getAllRecipes();
   },
 };
 </script>

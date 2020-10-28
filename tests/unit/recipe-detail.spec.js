@@ -1,10 +1,11 @@
 import { shallowMount, mount } from '@vue/test-utils';
 import recipeDetail from '@/components/recipe-detail.vue';
+// import 'peppermint-logic';
 
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 
-jest.mock('@/services/recipeService');
+jest.mock('peppermint-logic');
 
 Vue.use(Vuetify);
 
