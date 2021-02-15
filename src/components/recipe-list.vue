@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { recipeService } from 'peppermint-logic';
+import { recipeService } from '@peppermint/peppermint-logic';
 import recipePreviewCard from './recipe-preview-card.vue';
 
 export default {

@@ -111,7 +111,7 @@
 </template>
 
 <script>
-import { recipeService, shoppingListService } from 'peppermint-logic';
+import { recipeService, shoppingListService } from '@peppermint/peppermint-logic';
 
 export default {
   props: {
