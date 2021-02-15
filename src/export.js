@@ -1,4 +1,11 @@
-export * as App from './App.vue';
-export * as router from './router';
-export * as store from './store';
-export * as vuetify from './plugins/vuetify';
+import App from './App.vue';
+import router from './router';
+import store from './store';
+import vuetify from './plugins/vuetify';
+
+export {
+  App,
+  router,
+  store,
+  vuetify
+};
