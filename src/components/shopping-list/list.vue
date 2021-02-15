@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { parseIngredients, shoppingListService } from '@peppermint/peppermint-logic';
+import { parseIngredients, shoppingListService } from '@peppermint-recipes/peppermint-logic';
 import listItem from './list-item.vue';
 
 export default {

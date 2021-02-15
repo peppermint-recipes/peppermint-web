@@ -4,7 +4,6 @@ import router from './router';
 import store from './store';
 import vuetify from './plugins/vuetify';
 
-
 const requireComponent = require.context(
   // The relative path of the components folder
   './components',
