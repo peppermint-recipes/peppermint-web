@@ -111,8 +111,7 @@
 </template>
 
 <script>
-import { createRecipe, getRecipeById, deleteRecipe } from '../services/recipeService';
-import { addItem } from '../services/shoppingListService';
+import { recipeService, shoppingListService } from '@peppermint-recipes/peppermint-logic';
 
 export default {
   props: {
@@ -144,7 +143,7 @@ export default {
             instructions: '',
           };
         } else {
-          this.recipe = await getRecipeById(value);
+          this.recipe = await recipeService.getRecipeById(value);
         }
       },
       immediate: true,
@@ -153,17 +152,17 @@ export default {
 
   methods: {
     saveRecipe() {
-      createRecipe(this.recipe);
+      recipeService.createRecipe(this.recipe);
     },
     deleteCurrentRecipe() {
-      deleteRecipe(this.id);
+      recipeService.deleteRecipe(this.id);
       this.goToRecipes();
     },
     goToRecipes() {
       this.$router.push({ name: 'recipes' });
     },
     addToShoppingList() {
-      addItem(this.recipe);
+      shoppingListService.addItem(this.recipe);
     },
   },
 };
