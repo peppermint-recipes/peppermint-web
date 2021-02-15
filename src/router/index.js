@@ -7,28 +7,28 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('@/components/recipe-list.vue'),
+    component: () => import('../components/recipe-list.vue'),
   },
   {
     path: '/recipe/:id?',
     name: 'recipe',
     props: true,
-    component: () => import('@/components/recipe-detail.vue'),
+    component: () => import('../components/recipe-detail.vue'),
   },
   {
     path: '/recipes',
     name: 'recipes',
-    component: () => import('@/components/recipe-list.vue'),
+    component: () => import('../components/recipe-list.vue'),
   },
   {
     path: '/week',
     name: 'week',
-    component: () => import('@/components/weekly-menu/week.vue'),
+    component: () => import('../components/weekly-menu/week.vue'),
   },
   {
     path: '/shopping-list',
     name: 'shippingList',
-    component: () => import('@/components/shopping-list/list.vue'),
+    component: () => import('../components/shopping-list/list.vue'),
   },
 ];
 
