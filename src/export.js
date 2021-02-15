@@ -7,5 +7,5 @@ export {
   App,
   router,
   store,
-  vuetify
+  vuetify,
 };
