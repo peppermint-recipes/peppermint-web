@@ -80,7 +80,6 @@ describe('AddRecipeDialog.vue', () => {
     }, 400);
   });
 
-
   it('should go to recipes, when a recipe is deleted', () => {
     const mocks = {
       $router: {
