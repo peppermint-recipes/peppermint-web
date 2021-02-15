@@ -1095,9 +1095,9 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
-"@peppermint-recipes/peppermint-logic@git+ssh://git@github.com/peppermint-recipes/peppermint-logic#main":
+"@peppermint-recipes/peppermint-logic@git+https://github.com/peppermint-recipes/peppermint-logic#main":
   version "0.1.0"
-  resolved "git+ssh://git@github.com/peppermint-recipes/peppermint-logic#24ff047d8b3920fe2986f6a350ed8ca2bce9629b"
+  resolved "git+https://github.com/peppermint-recipes/peppermint-logic#24ff047d8b3920fe2986f6a350ed8ca2bce9629b"
   dependencies:
     "@typescript-eslint/eslint-plugin" "^4.2.0"
     axios "^0.21.1"
