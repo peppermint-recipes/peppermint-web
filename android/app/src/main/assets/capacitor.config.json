@@ -1,0 +1,20 @@
+{
+  "appId": "com.peppermint.app",
+  "appName": "peppermint-clients",
+  "bundledWebRuntime": false,
+  "npmClient": "yarn",
+  "webDir": "dist",
+  "linuxAndroidStudioPath": "/usr/bin/android-studio",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "server": {
+    "androidScheme": "http",
+    "allowNavigation": [
+      "http://localhost:3000"
+    ]
+  },
+  "cordova": {}
+}
