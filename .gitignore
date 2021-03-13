@@ -6,7 +6,7 @@ node_modules
 .env.local
 .env.*.local
 
-**capacitor.config.json
+**/capacitor.config.json
 
 
 # Log files
