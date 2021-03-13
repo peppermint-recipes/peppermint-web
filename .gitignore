@@ -3,11 +3,10 @@ node_modules
 /dist
 
 # local env files
+.env
 .env.local
 .env.*.local
-
 **/capacitor.config.json
-
 
 # Log files
 npm-debug.log*
