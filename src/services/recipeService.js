@@ -15,7 +15,6 @@ export const getAllRecipes = async () => {
 export const getRecipeById = async (id) => {
   const response = await http.get(`/recipes/${id}`);
 
-  console.log('works');
   return response.data;
 };
 
