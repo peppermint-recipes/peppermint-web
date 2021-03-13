@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "src/export.js",
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --host '0.0.0.0'",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
