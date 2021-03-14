@@ -3,16 +3,19 @@
   "version": "0.0.1",
   "main": "src/export.js",
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --host '0.0.0.0'",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "lint:fix": "vue-cli-service lint --fix",
-    "api": "json-server --watch db.json"
+    "api": "json-server --host 0.0.0.0 --watch db.json"
   },
   "dependencies": {
+    "@capacitor/android": "2.4.7",
+    "@capacitor/cli": "^2.4.7",
+    "@capacitor/core": "^2.4.7",
+    "@capacitor/ios": "2.4.7",
     "@mdi/font": "^5.0.45",
-    "@peppermint-recipes/peppermint-logic": "git+https://github.com/peppermint-recipes/peppermint-logic#main",
     "axios": "^0.21.1",
     "core-js": "^3.9.0",
     "material-design-icons-iconfont": "^6.1.0",
@@ -34,7 +37,7 @@
     "babel-eslint": "^10.0.3",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-vue": "^7.6.0",
+    "eslint-plugin-vue": "^7.7.0",
     "json-server": "^0.16.1",
     "node-sass": "^5.0.0",
     "sass": "^1.32.8",
