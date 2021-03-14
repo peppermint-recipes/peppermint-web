@@ -8,13 +8,19 @@
       "ingredients": "Test",
       "instructions": "Run",
       "id": 1
+    },
+    {
+      "name": "dasd",
+      "yield": "",
+      "activeTime": "",
+      "totalTime": "",
+      "ingredients": "ad",
+      "instructions": "",
+      "id": 2
     }
   ],
   "week": {
-    "monday": {},
-    "tuesday": {},
-    "wednesday": {},
-    "thursday": {
+    "monday": {
       "breakfast": [
         {
           "name": "Test1",
@@ -24,6 +30,49 @@
           "ingredients": "Test",
           "instructions": "Run",
           "id": 1
+        }
+      ],
+      "dinner": [],
+      "lunch": [
+        {
+          "name": "Test1",
+          "yield": "1",
+          "activeTime": "2",
+          "totalTime": "3",
+          "ingredients": "Test",
+          "instructions": "Run",
+          "id": 1
+        }
+      ]
+    },
+    "tuesday": {
+      "lunch": [],
+      "breakfast": []
+    },
+    "wednesday": {
+      "lunch": [
+        {
+          "name": "Test1",
+          "yield": "1",
+          "activeTime": "2",
+          "totalTime": "3",
+          "ingredients": "Test",
+          "instructions": "Run",
+          "id": 1
+        }
+      ],
+      "breakfast": []
+    },
+    "thursday": {
+      "breakfast": [
+        {
+          "name": "dasd",
+          "yield": "",
+          "activeTime": "",
+          "totalTime": "",
+          "ingredients": "ad",
+          "instructions": "",
+          "id": 2
         }
       ]
     },
