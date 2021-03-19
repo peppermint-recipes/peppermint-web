@@ -6,8 +6,8 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "api": "json-server --host 0.0.0.0 --watch db.json",
-    "lint:fix": "vue-cli-service lint --fix"
+    "lint:fix": "vue-cli-service lint --fix",
+    "api": "json-server --host 0.0.0.0 --watch db.json"
   },
   "main": "src/export.js",
   "dependencies": {
