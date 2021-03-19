@@ -111,7 +111,7 @@
 </template>
 
 <script>
-import * as recipeService from '../services/recipeService';
+import { recipeService } from '../main';
 import * as shoppingListService from '../services/shoppingListService';
 
 export default {

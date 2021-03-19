@@ -21,8 +21,8 @@
 </template>
 
 <script>
+import { shoppingListService } from '@/main';
 import parseIngredients from '../../services/ingredientParser';
-import * as shoppingListService from '../../services/shoppingListService';
 
 import listItem from './list-item.vue';
 
