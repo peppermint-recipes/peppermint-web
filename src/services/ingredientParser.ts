@@ -1,4 +1,4 @@
-const parseIngredients = (ingredientsString) => {
+const parseIngredients = (ingredientsString: String) => {
   let ingredients = [];
   const ingredientLines = ingredientsString.split('\n');
   ingredients = ingredientLines.map((line) => {
@@ -21,7 +21,7 @@ const parseIngredients = (ingredientsString) => {
       'EL', 'TL', 'CUPS', 'CUP', 'G', 'ML',
     ];
 
-    const regexBuilder = (string) => `((\\W|^)${string}(?=\\W))`;
+    const regexBuilder = (string: String) => `((\\W|^)${string}(?=\\W))`;
     const test = units.reduce((string, unit) => string.concat(`|${regexBuilder(unit)}`),
       (regexBuilder(units[0])));
     const unitRegex = new RegExp(test, 'i');

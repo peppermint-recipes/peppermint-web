@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import * as recipeService from '../services/recipeService';
+import { recipeService } from '../main';
 import recipePreviewCard from './recipe-preview-card.vue';
 
 export default {

@@ -124,10 +124,8 @@
 
 <script>
 import draggable from 'vuedraggable';
+import { weekService, recipeService, shoppingListService } from '@/main';
 import day from './day.vue';
-import { getAllRecipes } from '../../services/recipeService';
-import { updateWeek, getWeek } from '../../services/weekService';
-import { addItems } from '../../services/shoppingListService';
 
 export default {
   components: {
@@ -152,8 +150,8 @@ export default {
   },
 
   async created() {
-    this.recipes = await getAllRecipes();
-    const weekFromServer = await getWeek();
+    this.recipes = await recipeService.getAllRecipes();
+    const weekFromServer = await weekService.getWeek();
 
     this.week = {
       monday: weekFromServer.monday || {},
@@ -180,7 +178,7 @@ export default {
       this.saveWeek(this.week);
     },
     saveWeek() {
-      updateWeek(this.week);
+      weekService.updateWeek(this.week);
     },
 
     createShoppingList() {
@@ -193,7 +191,7 @@ export default {
       recipesFromDinnertimes.push(Object.values(this.week.saturday));
       recipesFromDinnertimes.push(Object.values(this.week.sunday));
       const recipes = recipesFromDinnertimes.flat().flat();
-      addItems(recipes);
+      shoppingListService.addItems(recipes);
     },
 
   },
