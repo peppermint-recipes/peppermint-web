@@ -6,6 +6,7 @@ import http from '../plugins/axios';
 export async function loadAllRecipes() {
   try {
     const response = await http.get('/recipes');
+
     return response.data;
   } catch (error) {
     console.log(error);
