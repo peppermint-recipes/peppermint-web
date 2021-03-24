@@ -63,6 +63,7 @@ export default class LocalShoppingList {
 
       if (error.message === fileDoesNotExistErrorMessage) {
         await this.writeLocalShoppingList([]);
+
         return [];
       }
       return [];
