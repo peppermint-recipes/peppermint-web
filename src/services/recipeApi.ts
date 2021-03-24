@@ -26,6 +26,7 @@ export async function postRecipe(recipe: Recipe) {
 export async function getRecipeById(id: string) {
   try {
     const response = await http.get(`/recipes/${id}`);
+
     return response.data;
   } catch (error) {
     console.log(error);
