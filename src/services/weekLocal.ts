@@ -49,6 +49,7 @@ export default class weekLocal {
           saturday: this.emptyDay,
           sunday: this.emptyDay,
         });
+
         return [];
       }
       return [];
