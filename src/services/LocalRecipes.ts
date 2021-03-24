@@ -52,6 +52,7 @@ export default class LocalRecipes {
 
       if (error.message === fileDoesNotExistErrorMessage) {
         await this.writeLocalRecipes([]);
+
         return [];
       }
       return [];
