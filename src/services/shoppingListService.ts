@@ -53,6 +53,7 @@ export default class ShoppingListService {
     }
     const recipeResponse = await http.get('/shoppingList');
     const recipes = recipeResponse.data;
+
     return Promise.all(recipes.forEach((recipe: Recipe) => {
       http.delete(`/shoppingList/${recipe.id}`);
     }));
