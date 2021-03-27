@@ -53,6 +53,18 @@
             <v-list-item-title>Shopping List</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+
+        <v-list-item
+          link
+          to="/settings"
+        >
+          <v-list-item-action>
+            <v-icon>mdi-wrench</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Settings</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 

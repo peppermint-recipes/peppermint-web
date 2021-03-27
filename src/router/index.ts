@@ -30,6 +30,11 @@ const routes = [
     name: 'shippingList',
     component: () => import('../components/shopping-list/list.vue'),
   },
+  {
+    path: '/settings',
+    name: 'settings',
+    component: () => import('../components/settings.vue'),
+  },
 ];
 
 const router = new VueRouter({
