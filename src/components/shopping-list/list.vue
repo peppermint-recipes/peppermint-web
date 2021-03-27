@@ -38,8 +38,10 @@ export default {
     };
   },
 
-  async created() {
-    this.recipeList = await shoppingListService.getItems();
+  created() {
+    const allLists = shoppingListService.getAll();
+    // eslint-disable-next-line prefer-destructuring
+    this.recipeList = allLists[0];
     const filtered = [];
     this.recipeList.forEach(
       (recipe) => {
@@ -71,8 +73,17 @@ export default {
 
   methods: {
     async clearShoppingList() {
-      await shoppingListService.removeAllItems();
-      this.recipeList = await shoppingListService.getItems();
+      const {
+        id, userId, isDeleted, lastUpdated,
+      } = this.recipeList;
+      const clearedList = {
+        id, userId, isDeleted, lastUpdated, items: [],
+      };
+
+      await shoppingListService.update(this.recipeList.id, clearedList);
+      const allLists = shoppingListService.getAll();
+      // eslint-disable-next-line prefer-destructuring
+      this.recipeList = allLists[0];
     },
   },
 
