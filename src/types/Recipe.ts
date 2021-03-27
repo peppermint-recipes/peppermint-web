@@ -1,10 +1,12 @@
-export interface Recipe {
-  id: string
+import { Storable } from './Storable';
+
+export interface Recipe extends Storable {
   name: string,
   calories: number,
-  yield: number,
   activeTime: string,
   totalTime: string,
   ingredients: string,
   instructions: string,
+  servings: number,
+  categories: string[],
 }

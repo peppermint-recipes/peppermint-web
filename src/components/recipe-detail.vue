@@ -111,8 +111,7 @@
 </template>
 
 <script>
-import { recipeService } from '../main';
-import * as shoppingListService from '../services/shoppingListService';
+import { recipeService, shoppingListService } from '../main';
 
 export default {
   props: {
@@ -153,16 +152,17 @@ export default {
 
   methods: {
     saveRecipe() {
-      recipeService.createRecipe(this.recipe);
+      recipeService.add(this.recipe);
     },
     deleteCurrentRecipe() {
-      recipeService.deleteRecipe(this.id);
+      recipeService.delete(this.id);
       this.goToRecipes();
     },
     goToRecipes() {
       this.$router.push({ name: 'recipes' });
     },
     addToShoppingList() {
+      // Todo Fix
       shoppingListService.addItem(this.recipe);
     },
   },
