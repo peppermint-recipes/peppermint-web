@@ -2,23 +2,30 @@ import { Capacitor } from '@capacitor/core';
 
 import { AxiosInstance } from 'axios';
 import { User } from '../types/User';
+import { CookieService } from './cookieService';
 
 const plattformIsMobile = Capacitor?.isNative;
 
-export default class SettingsService {
+export default class UserService {
   private readonly apiClient: AxiosInstance
 
   constructor(options: {
     apiClient: AxiosInstance
+    accessToken: string
+
   }) {
     this.apiClient = options.apiClient;
   }
 
   public loginUser = async (user: User) => {
     try {
-      const response = await this.apiClient.post('/users/authorize', user);
+      // TODO: plain body instead of form-data?
+      const bodyFormData = new FormData();
+      bodyFormData.append('username', user.name);
+      bodyFormData.append('password', user.password);
+      const response = await this.apiClient.post('/login', bodyFormData);
 
-      return response.data.data;
+      return response.data;
     } catch (error) {
       if (!error.response) {
         throw new Error('couldn\'t login');
@@ -34,6 +41,7 @@ export default class SettingsService {
       return response.data.user;
     } catch (error) {
       if (!error.response) {
+        console.log(error);
         throw new Error('couldn\'t create user');
       }
       throw new Error(error.response.data.status);
