@@ -4,14 +4,14 @@ const parseIngredients = (ingredientsString: String) => {
   ingredients = ingredientLines.map((line) => {
     let copy = line;
     const parsedIngredient = {
-      amount: '',
+      amount: 0,
       unit: '',
       ingredient: '',
     };
     const amountRegex = new RegExp(/(\d)+(\s?\d)*(\d|\.|\/)*/);
     const match = copy.match(amountRegex);
     if (match) {
-      const amount = match[0];
+      const amount = Number(match[0]);
       parsedIngredient.amount = amount;
       const lineWithoutAmount = copy.replace(amountRegex, '');
       copy = lineWithoutAmount.trim();
