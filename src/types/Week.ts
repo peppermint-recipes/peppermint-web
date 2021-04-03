@@ -13,7 +13,7 @@ export interface Day {
 }
 
 export interface Week extends Storable {
-  calenderWeek: number,
+  calendarWeek: number,
   year: number,
   monday: Day,
   tuesday: Day,

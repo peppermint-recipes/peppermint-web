@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
 import LocalStore from '@/Stores/LocalStore';
 import WebStore from '@/Stores/WebStore';
@@ -9,24 +10,26 @@ const plattformIsNative = Capacitor?.isNative;
 export default class StoreHandler<Type extends Storable> {
   private localStore: LocalStore<Map<string, Type>>;
 
-  private webStore: WebStore<Type, Map<string, Type>>;
+  private webStore: WebStore<Type, Type[]>;
 
   private items: Map<string, Type>;
 
   constructor(options: {
     localStore: LocalStore<Map<string, Type>>,
-    webStore: WebStore<Type, Map<string, Type>>,
+    webStore: WebStore<Type, Type[]>,
   }) {
     this.localStore = options.localStore;
     this.webStore = options.webStore;
     this.items = new Map();
-    this.sync();
   }
 
   async add(item: Type) {
+    item.userId = process.env.VUE_APP_USER_ID;
     let itemFromServer;
     try {
-      itemFromServer = await this.webStore.saveOne(item);
+      const itemCopy = { ...item };
+      itemCopy.id = '';
+      itemFromServer = await this.webStore.saveOne(itemCopy);
       this.items.set(itemFromServer.id, itemFromServer);
     } catch (error) {
       console.log(error);
@@ -52,6 +55,7 @@ export default class StoreHandler<Type extends Storable> {
   }
 
   public async update(id: string, item: Type) {
+    item.userId = process.env.VUE_APP_USER_ID;
     let updatedItemFromServer;
     try {
       updatedItemFromServer = await this.webStore.updateOne(id, item);
@@ -94,9 +98,23 @@ export default class StoreHandler<Type extends Storable> {
     }
   }
 
-  private async sync() {
-    const webRecipes = await this.webStore.get();
+  public async sync() {
+    if (!plattformIsNative) {
+      const webRecipesAsArray = await this.webStore.get();
+      const webRecipes = new Map();
+      webRecipesAsArray.forEach((recipe) => webRecipes.set(recipe.id, recipe));
+      this.items = webRecipes;
+      return;
+    }
+
+    const webRecipesAsArray = await this.webStore.get();
     const localRecipes = await this.localStore.read();
+
+    const webRecipes = new Map();
+    webRecipesAsArray.forEach((recipe) => webRecipes.set(recipe.id, recipe));
+
+    console.log(JSON.stringify([...webRecipes]));
+    console.log(JSON.stringify([...localRecipes]));
 
     const {
       serverDifference,
@@ -124,7 +142,6 @@ export default class StoreHandler<Type extends Storable> {
 
   private getDifferences(serverRecipes: Map<string, Type>, localRecipes: Map<string, Type>) {
     const localRecipesCopy = new Map(localRecipes);
-
     type Differences = {
       new: Type[],
       updated: Type[],

@@ -12,6 +12,9 @@ export default class WebStore<StoreType, StoreTypeMultiple> {
 
   public async saveOne(data: StoreType) {
     const response = await this.apiClient.post(this.baseUrl, data);
+    if (response.data === null) {
+      return [];
+    }
     return response.data;
   }
 
@@ -20,13 +23,52 @@ export default class WebStore<StoreType, StoreTypeMultiple> {
   }
 
   public async updateOne(id: string, data: StoreType) {
-    const response = await this.apiClient.put(`${this.baseUrl}/${id}`, data);
+    const response = await this.apiClient.put(this.baseUrl, data);
+    if (response.data === null) {
+      return [];
+    }
     return response.data;
   }
 
   public async get(): Promise<StoreTypeMultiple> {
-    const response = await this.apiClient.get(this.baseUrl);
-    return response.data;
+    try {
+      const response = await this.apiClient.get(this.baseUrl);
+      if (response.data === null) {
+        return [] as unknown as StoreTypeMultiple;
+      }
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // http.ClientRequest in node.js
+        const test = error.request as XMLHttpRequest;
+        console.log(test.status);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+      }
+      console.log(error.config);
+      return [] as unknown as StoreTypeMultiple;
+    }
+  }
+
+  private readBody(xhr: any) {
+    let data;
+    if (!xhr.responseType || xhr.responseType === 'text') {
+      data = xhr.responseText;
+    } else if (xhr.responseType === 'document') {
+      data = xhr.responseXML;
+    } else {
+      data = xhr.response;
+    }
+    return data;
   }
 
   public async delete(id: string): Promise<StoreType> {
