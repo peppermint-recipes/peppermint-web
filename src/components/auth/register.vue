@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import { notEmpty, samePassword } from '@/plugins/validation-rules';
+import { notEmpty, samePassword, Validator } from '@/plugins/validation-rules';
 // import { postUser, loginUser } from '@/utils/api-connector';
 import { userService, cookieService } from '@/main';
 
@@ -103,7 +103,7 @@ export default {
       repeatedPassword: '',
       rules: [
         (value) => notEmpty(value),
-        (value) => samePassword(this.password, value),
+        (value) => Validator.samePassword(this.password, value),
       ],
     };
   },

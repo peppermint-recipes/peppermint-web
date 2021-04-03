@@ -4,11 +4,6 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'Home',
-  //   component: () => import('../components/recipe-list.vue'),
-  // },
   {
     path: '/',
     name: 'login',

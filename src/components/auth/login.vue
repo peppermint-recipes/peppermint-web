@@ -79,7 +79,7 @@
 
 <script>
 // import jwt from 'jsonwebtoken';
-import { notEmpty } from '@/plugins/validation-rules';
+import { Validator } from '@/plugins/validation-rules';
 import { cookieService, userService } from '@/main';
 
 export default {
@@ -92,7 +92,7 @@ export default {
       username: '',
       password: '',
       rules: [
-        (value) => notEmpty(value),
+        (value) => Validator.notEmpty(value),
       ],
     };
   },
