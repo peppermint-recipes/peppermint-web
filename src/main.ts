@@ -14,9 +14,9 @@ import { Week } from './types/Week';
 import { ShoppingList } from './types/ShoppingList';
 import StoreHandler from './Stores/StoreHandler';
 import UserService from './services/userService';
-import { CookieService } from './services/cookieService';
+import LocalStorageService from './services/cookieService';
 
-export const cookieService = new CookieService();
+export const cookieService = new LocalStorageService();
 
 const axiosApiClient = new AxiosHttpClient({
   cookieService,

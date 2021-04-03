@@ -2,7 +2,7 @@ import { Capacitor } from '@capacitor/core';
 
 import { AxiosInstance } from 'axios';
 import { User } from '../types/User';
-import { CookieService } from './cookieService';
+import LocalStorageService from './cookieService';
 
 const plattformIsMobile = Capacitor?.isNative;
 

@@ -156,11 +156,17 @@ export default {
 
   methods: {
     saveRecipe() {
+      this.recipe.activeTime = Number(this.recipe.activeTime);
+      this.recipe.totalTime = Number(this.recipe.totalTime);
+      this.recipe.servings = Number(this.recipe.servings);
+
       if (recipeService.getById(this.recipe.id)) {
         recipeService.update(this.recipe.id, this.recipe);
       } else {
         recipeService.add(this.recipe);
       }
+
+      this.goToRecipes();
     },
     deleteCurrentRecipe() {
       recipeService.delete(this.id);

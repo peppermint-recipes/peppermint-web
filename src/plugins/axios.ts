@@ -1,28 +1,28 @@
 import axios, { AxiosInstance } from 'axios';
-import { CookieService } from '../services/cookieService';
+import LocalStorageService from '../services/cookieService';
 
 export default class AxiosHttpClient {
   public readonly http: AxiosInstance
 
-  private readonly cookieService: CookieService
+  private readonly localStorageService: LocalStorageService
 
   constructor(options: {
-    cookieService: CookieService
+    cookieService: LocalStorageService
   }) {
+    this.localStorageService = options.cookieService;
+
     this.http = axios.create({
-      baseURL: process.env.VUE_APP_API_URL,
+      baseURL: this.localStorageService.getServerAddress(),
       headers: {
         'Content-Type': 'application/json',
       },
     });
 
-    this.cookieService = options.cookieService;
-
     this.http.interceptors.request.use(
       (config) => {
         const conf = config;
 
-        const token = `Bearer ${this.cookieService.getUserAcessToken()}`;
+        const token = `Bearer ${this.localStorageService.getUserAcessToken()}`;
         console.log(token);
 
         if (token) {

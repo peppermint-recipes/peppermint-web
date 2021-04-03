@@ -1,15 +1,28 @@
-export class CookieService {
-  private userAccessToken: string
+export default class LocalStorageService {
+  private readonly localStorage: Storage
 
   constructor() {
-    this.userAccessToken = '';
+    this.localStorage = window.localStorage;
   }
 
   public setUserAccessToken(token: string) {
-    this.userAccessToken = token;
+    this.localStorage.setItem('token', token);
   }
 
   public getUserAcessToken() {
-    return this.userAccessToken;
+    return this.localStorage.getItem('token');
+  }
+
+  public setServerAddress(serverAddress: string) {
+    this.localStorage.setItem('serverAddress', serverAddress);
+  }
+
+  public getServerAddress(): string {
+    const serverAddressFromLocalStorage = this.localStorage.getItem('serverAddress');
+
+    if (!serverAddressFromLocalStorage) {
+      return 'http://localhost:1337';
+    }
+    return serverAddressFromLocalStorage;
   }
 }

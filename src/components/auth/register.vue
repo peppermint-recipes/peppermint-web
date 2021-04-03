@@ -27,10 +27,17 @@
 
               <v-card-text>
                 <v-text-field
+                  v-model="serverAddress"
+                  label="Server"
+                  :rules="[value => !!value || 'Server is required']"
+                  autofocus
+                  @keydown="validateAndRegister"
+                />
+
+                <v-text-field
                   v-model="username"
                   label="Username"
                   :rules="[value => !!value || 'Username is required']"
-                  autofocus
                   @keydown="validateAndRegister"
                 />
 
@@ -90,6 +97,7 @@ export default {
   data() {
     return {
       valid: false,
+      serverAddress: '',
       username: '',
       password: '',
       repeatedPassword: '',

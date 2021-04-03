@@ -26,10 +26,17 @@
 
               <v-card-text>
                 <v-text-field
+                  v-model="serverAddress"
+                  label="Server"
+                  :rules="[value => !!value || 'Server is required']"
+                  autofocus
+                  @keydown="validateAndLogin"
+                />
+
+                <v-text-field
                   v-model="username"
                   label="Username"
                   :rules="rules"
-                  autofocus=""
                   @keydown="validateAndLogin"
                 />
 
@@ -81,6 +88,7 @@ export default {
   data() {
     return {
       valid: false,
+      serverAddress: '',
       username: '',
       password: '',
       rules: [
@@ -97,17 +105,8 @@ export default {
       };
       try {
         const token = await userService.loginUser(user);
-        console.log(token);
+
         cookieService.setUserAccessToken(token.token);
-
-        // const token = await loginUser(user);
-        // this.$store.commit('changeJwt', token);
-
-        // const decodedToken = await jwt.decode(token, { complete: true });
-
-        // const userRes = await getUserById(decodedToken.payload.id);
-        // userRes.password = this.password;
-        // this.$store.commit('initUser', userRes);
         if (token) {
           this.$router.push('/recipes');
         }
