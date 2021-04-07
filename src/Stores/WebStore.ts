@@ -38,7 +38,6 @@ export default class WebStore<Type> {
       }
       return response.data;
     } catch (error) {
-      console.log(error);
       return [] as Type[];
     }
   }
