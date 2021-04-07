@@ -17,26 +17,22 @@ import StoreHandler from './Stores/StoreHandler';
 dayjs.extend(weekOfYear);
 dayjs.extend(isoWeek);
 
-type Id = string;
-type RecipeMap = Map<Id, Recipe>
-const recipeLocalStore = new LocalStore<RecipeMap>('recipes.txt');
-const recipeWebStore = new WebStore<Recipe, Recipe[]>('/recipes/', apiClient);
+const recipeLocalStore = new LocalStore<Recipe>('recipes.txt');
+const recipeWebStore = new WebStore<Recipe>('/recipes/', apiClient);
 export const recipeService = new StoreHandler<Recipe>({
   localStore: recipeLocalStore,
   webStore: recipeWebStore,
 });
 
-type WeekMap = Map<Id, Week>
-const weekLocalStore = new LocalStore<WeekMap>('week.txt');
-const weekWebStore = new WebStore<Week, Week[]>('/weekplans/', apiClient);
+const weekLocalStore = new LocalStore<Week>('week.txt');
+const weekWebStore = new WebStore<Week>('/weekplans/', apiClient);
 export const weekService = new StoreHandler<Week>({
   localStore: weekLocalStore,
   webStore: weekWebStore,
 });
 
-type ShoppingListMap = Map<Id, ShoppingList>
-const shoppingListLocalStore = new LocalStore<ShoppingListMap>('shoppingList.txt');
-const shoppingListWebStore = new WebStore<ShoppingList, ShoppingList[]>('/shopping-lists/', apiClient);
+const shoppingListLocalStore = new LocalStore<ShoppingList>('shoppingList.txt');
+const shoppingListWebStore = new WebStore<ShoppingList>('/shopping-lists/', apiClient);
 export const shoppingListService = new StoreHandler<ShoppingList>({
   localStore: shoppingListLocalStore,
   webStore: shoppingListWebStore,

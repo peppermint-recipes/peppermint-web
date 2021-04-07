@@ -8,6 +8,7 @@ module.exports = {
   extends: [
     'plugin:vue/recommended',
     '@vue/airbnb',
+    '@vue/typescript',
   ],
 
   parserOptions: {
@@ -30,11 +31,5 @@ module.exports = {
         jest: true,
       },
     },
-  ],
-
-  extends: [
-    'plugin:vue/recommended',
-    '@vue/airbnb',
-    '@vue/typescript',
   ],
 };

@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
 
-export default class WebStore<StoreType, StoreTypeMultiple> {
+export default class WebStore<Type> {
   private baseUrl: string
 
   private apiClient: AxiosInstance
@@ -10,7 +10,7 @@ export default class WebStore<StoreType, StoreTypeMultiple> {
     this.apiClient = apiClientIn;
   }
 
-  public async saveOne(data: StoreType) {
+  public async saveOne(data: Type) {
     const response = await this.apiClient.post(this.baseUrl, data);
     if (response.data === null) {
       return [];
@@ -18,11 +18,11 @@ export default class WebStore<StoreType, StoreTypeMultiple> {
     return response.data;
   }
 
-  public async save(data: StoreType) {
+  public async save(data: Type) {
     await this.apiClient.post(this.baseUrl, data);
   }
 
-  public async updateOne(id: string, data: StoreType) {
+  public async updateOne(id: string, data: Type) {
     const response = await this.apiClient.put(this.baseUrl, data);
     if (response.data === null) {
       return [];
@@ -30,11 +30,11 @@ export default class WebStore<StoreType, StoreTypeMultiple> {
     return response.data;
   }
 
-  public async get(): Promise<StoreTypeMultiple> {
+  public async get(): Promise<Type[]> {
     try {
       const response = await this.apiClient.get(this.baseUrl);
       if (response.data === null) {
-        return [] as unknown as StoreTypeMultiple;
+        return [] as Type[];
       }
       return response.data;
     } catch (error) {
@@ -55,7 +55,7 @@ export default class WebStore<StoreType, StoreTypeMultiple> {
         console.log('Error', error.message);
       }
       console.log(error.config);
-      return [] as unknown as StoreTypeMultiple;
+      return [] as Type[];
     }
   }
 
@@ -71,7 +71,7 @@ export default class WebStore<StoreType, StoreTypeMultiple> {
     return data;
   }
 
-  public async delete(id: string): Promise<StoreType> {
+  public async delete(id: string): Promise<Type> {
     const response = await this.apiClient.delete(id);
     return response.data;
   }
