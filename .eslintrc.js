@@ -32,4 +32,10 @@ module.exports = {
       },
     },
   ],
+
+  extends: [
+    'plugin:vue/recommended',
+    '@vue/airbnb',
+    '@vue/typescript',
+  ],
 };

@@ -17,14 +17,14 @@
     "@capacitor/ios": "2.4.7",
     "@mdi/font": "^5.0.45",
     "axios": "^0.21.1",
-    "core-js": "^3.9.0",
+    "core-js": "^3.10.0",
     "dayjs": "^1.10.4",
     "material-design-icons-iconfont": "^6.1.0",
     "uuid": "^8.3.2",
     "vue": "^2.6.11",
     "vue-router": "^3.1.5",
     "vuedraggable": "^2.23.2",
-    "vuetify": "^2.2.11",
+    "vuetify": "^2.4.9",
     "vuex": "^3.1.2"
   },
   "devDependencies": {
