@@ -4,24 +4,22 @@ import {
 
 const { Filesystem } = Plugins;
 
-export default class localStore<StoreType> {
+export default class localStore<Type> {
   private fileName: string
 
   constructor(fileNameIn: string) {
     this.fileName = fileNameIn;
   }
 
-  public async read(): Promise<StoreType> {
+  public async read(): Promise<Type[]> {
     const data = await this.readFile();
     if (!data) {
-      return new Map() as unknown as StoreType;
+      return [] as Type[];
     }
-    console.log(data);
-    // console.log(new Map(data));
     return data;
   }
 
-  public async persist(data: StoreType) {
+  public async persist(data: Type[]) {
     await this.writeFile(data);
   }
 
@@ -33,14 +31,9 @@ export default class localStore<StoreType> {
         encoding: FilesystemEncoding.UTF8,
       });
 
-      // console.log('test');
-      console.log(file.data);
-      // console.log(JSON.stringify(file.data));
       const parsed = JSON.parse(file.data);
-      // console.log('parsed');
-      console.log(parsed);
-      console.log(new Map(parsed));
-      return new Map(parsed);
+
+      return parsed;
     } catch (error) {
       const fileDoesNotExistErrorMessage = 'File does not exist';
 
@@ -48,14 +41,14 @@ export default class localStore<StoreType> {
         await this.writeFile();
       }
 
-      return new Map() as any;
+      return [] as Type [];
     }
   }
 
-  private async writeFile(data?: StoreType) {
+  private async writeFile(data?: Type[]) {
     await Filesystem.writeFile({
       path: this.fileName,
-      data: (data !== undefined) ? JSON.stringify(data) : JSON.stringify({}),
+      data: (data !== undefined) ? JSON.stringify(data) : JSON.stringify([]),
       directory: FilesystemDirectory.Documents,
       encoding: FilesystemEncoding.UTF8,
     });

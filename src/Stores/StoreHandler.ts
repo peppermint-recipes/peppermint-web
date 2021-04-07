@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign */
-/* eslint-disable no-console */
 import LocalStore from '@/Stores/LocalStore';
 import WebStore from '@/Stores/WebStore';
 import { Storable } from '@/types/Storable';
@@ -8,19 +7,19 @@ import { Capacitor } from '@capacitor/core';
 const plattformIsNative = Capacitor?.isNative;
 
 export default class StoreHandler<Type extends Storable> {
-  private localStore: LocalStore<Map<string, Type>>;
+  private localStore: LocalStore<Type>;
 
-  private webStore: WebStore<Type, Type[]>;
+  private webStore: WebStore<Type>;
 
-  private items: Map<string, Type>;
+  private items: Type[];
 
   constructor(options: {
-    localStore: LocalStore<Map<string, Type>>,
-    webStore: WebStore<Type, Type[]>,
+    localStore: LocalStore<Type>,
+    webStore: WebStore<Type>,
   }) {
     this.localStore = options.localStore;
     this.webStore = options.webStore;
-    this.items = new Map();
+    this.items = [];
   }
 
   async add(item: Type) {
@@ -30,14 +29,14 @@ export default class StoreHandler<Type extends Storable> {
       const itemCopy = { ...item };
       itemCopy.id = '';
       itemFromServer = await this.webStore.saveOne(itemCopy);
-      this.items.set(itemFromServer.id, itemFromServer);
+      this.items.push(itemFromServer);
     } catch (error) {
       console.log(error);
     }
 
     if (plattformIsNative) {
       if (!itemFromServer) {
-        this.items.set(item.id, item);
+        this.items.push(item);
       }
       await this.localStore.persist(this.items);
     }
@@ -59,25 +58,25 @@ export default class StoreHandler<Type extends Storable> {
     let updatedItemFromServer;
     try {
       updatedItemFromServer = await this.webStore.updateOne(id, item);
-      this.items.set(updatedItemFromServer.id, updatedItemFromServer);
+      this.items.push(updatedItemFromServer);
     } catch (error) {
       console.log(error);
     }
 
     if (plattformIsNative) {
       if (!updatedItemFromServer) {
-        this.items.set(item.id, item);
+        this.items.push(item);
       }
       await this.localStore.persist(this.items);
     }
   }
 
   public getById(id: string): Type | undefined {
-    return this.items.get(id);
+    return this.items.find((item) => item.id === id);
   }
 
   public async delete(id: string) {
-    let itemToDelete = this.items.get(id);
+    let itemToDelete = this.items.find((item) => item.id === id);
 
     if (!itemToDelete) {
       return;
@@ -91,7 +90,7 @@ export default class StoreHandler<Type extends Storable> {
       console.log(error);
     }
 
-    this.items.set(itemToDelete.id, itemToDelete);
+    this.items.push(itemToDelete);
 
     if (plattformIsNative) {
       this.localStore.persist(this.items);
@@ -100,21 +99,18 @@ export default class StoreHandler<Type extends Storable> {
 
   public async sync() {
     if (!plattformIsNative) {
-      const webRecipesAsArray = await this.webStore.get();
-      const webRecipes = new Map();
-      webRecipesAsArray.forEach((recipe) => webRecipes.set(recipe.id, recipe));
-      this.items = webRecipes;
+      this.items = await this.webStore.get();
       return;
     }
 
     const webRecipesAsArray = await this.webStore.get();
-    const localRecipes = await this.localStore.read();
+    const localRecipesAsArray = await this.localStore.read();
 
     const webRecipes = new Map();
     webRecipesAsArray.forEach((recipe) => webRecipes.set(recipe.id, recipe));
 
-    console.log(JSON.stringify([...webRecipes]));
-    console.log(JSON.stringify([...localRecipes]));
+    const localRecipes = new Map();
+    localRecipesAsArray.forEach((recipe) => localRecipes.set(recipe.id, recipe));
 
     const {
       serverDifference,
@@ -128,12 +124,14 @@ export default class StoreHandler<Type extends Storable> {
       serverDifference.updated.map((recipe) => this.webStore.updateOne(recipe.id, recipe)),
     );
 
-    const syncedItems: Map<string, Type> = new Map();
+    const syncedItems = [] as Type[];
 
-    this.addItemsToMap(createdItems, syncedItems);
-    this.addItemsToMap(updatedItems, syncedItems);
-    this.addItemsToMap(localDifference.new, syncedItems);
-    this.addItemsToMap(localDifference.updated, syncedItems);
+    syncedItems.push(
+      ...createdItems,
+      ...updatedItems,
+      ...localDifference.new,
+      ...localDifference.updated,
+    );
 
     this.items = syncedItems;
 
@@ -183,9 +181,5 @@ export default class StoreHandler<Type extends Storable> {
       serverDifference,
       localDifference,
     };
-  }
-
-  private addItemsToMap(recipes: Type[], recipeMap: Map<string, Type>) {
-    recipes.forEach((recipe) => recipeMap.set(recipe.id, recipe));
   }
 }

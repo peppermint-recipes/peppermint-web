@@ -174,13 +174,9 @@ export default {
       recipesFromDinnertimes.push(Object.values(this.week.sunday));
       let recipes = recipesFromDinnertimes.flat().flat();
       recipes = recipes.filter((recipe) => recipe !== null);
-      console.log(recipes);
-      console.log(shoppingListService.getAll()[0]);
       const shoppingList = shoppingListService.getAll()[0] || generateEmptyShoppingList();
       recipes.forEach((recipe) => {
         const ingredients = parseIngredients(recipe.ingredients);
-        console.log(ingredients);
-        console.log(shoppingList.items);
         shoppingList.items = [...shoppingList.items, ...ingredients];
         shoppingList.lastUpdated = new Date();
       });
