@@ -45,7 +45,6 @@ export default {
     console.log(this.shoppingList);
     this.shoppingList.items.forEach(
       (ingredient) => {
-        // ingredients.forEach((ingredient) => {
         const foundIndex = filtered.findIndex(
           (element) => element.ingredient.toLowerCase() === ingredient.ingredient.toLowerCase(),
         );
@@ -60,7 +59,6 @@ export default {
         } else {
           filtered.push(ingredient);
         }
-        // });
       },
     );
     this.shoppingList = filtered;
