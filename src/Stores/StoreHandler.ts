@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign */
-/* eslint-disable no-console */
 import LocalStore from '@/Stores/LocalStore';
 import WebStore from '@/Stores/WebStore';
 import { Storable } from '@/types/Storable';
@@ -135,8 +134,6 @@ export default class StoreHandler<Type extends Storable> {
     );
 
     this.items = syncedItems;
-
-    console.log(this.items);
 
     this.localStore.persist(this.items);
   }
