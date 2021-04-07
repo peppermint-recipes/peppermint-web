@@ -35,6 +35,7 @@
               <v-text-field
                 id="recipe-yield-field"
                 v-model="recipe.yield"
+                type="number"
                 outlined
                 label="Yield"
               />
@@ -43,6 +44,7 @@
               <v-text-field
                 id="recipe-active-time-field"
                 v-model="recipe.activeTime"
+                type="number"
                 outlined
                 label="Time active"
               />
@@ -51,6 +53,7 @@
               <v-text-field
                 id="recipe-total-time-field"
                 v-model="recipe.totalTime"
+                type="number"
                 outlined
                 label="Time total"
               />
@@ -111,8 +114,8 @@
 </template>
 
 <script>
-import { recipeService } from '../main';
-import * as shoppingListService from '../services/shoppingListService';
+import parseIngredients from '@/services/ingredientParser';
+import { recipeService, shoppingListService } from '../main';
 
 export default {
   props: {
@@ -138,13 +141,13 @@ export default {
           this.recipe = {
             name: '',
             yield: '',
-            activeTime: '',
-            totalTime: '',
+            activeTime: 0,
+            totalTime: 0,
             ingredients: '',
             instructions: '',
           };
         } else {
-          this.recipe = await recipeService.getRecipeById(value);
+          this.recipe = recipeService.getById(value);
         }
       },
       immediate: true,
@@ -153,17 +156,25 @@ export default {
 
   methods: {
     saveRecipe() {
-      recipeService.createRecipe(this.recipe);
+      if (recipeService.getById(this.recipe.id)) {
+        recipeService.update(this.recipe.id, this.recipe);
+      } else {
+        recipeService.add(this.recipe);
+      }
     },
     deleteCurrentRecipe() {
-      recipeService.deleteRecipe(this.id);
+      recipeService.delete(this.id);
       this.goToRecipes();
     },
     goToRecipes() {
       this.$router.push({ name: 'recipes' });
     },
-    addToShoppingList() {
-      shoppingListService.addItem(this.recipe);
+    async addToShoppingList() {
+      const shoppingList = shoppingListService.getAll()[0];
+      const ingredients = parseIngredients(this.recipe.ingredients);
+      shoppingList.items = [...shoppingList.items, ...ingredients];
+      shoppingList.lastUpdated = new Date();
+      shoppingListService.update(shoppingList.id, shoppingList);
     },
   },
 };

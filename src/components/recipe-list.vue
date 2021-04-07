@@ -36,7 +36,8 @@ export default {
   },
 
   async created() {
-    this.recipes = await recipeService.getAllRecipes();
+    await recipeService.sync();
+    this.recipes = recipeService.getAll();
   },
 };
 </script>

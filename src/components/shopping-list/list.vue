@@ -22,7 +22,6 @@
 
 <script>
 import { shoppingListService } from '@/main';
-import parseIngredients from '../../services/ingredientParser';
 
 import listItem from './list-item.vue';
 
@@ -34,36 +33,31 @@ export default {
   data() {
     return {
       shoppingList: [],
-      recipeList: [],
     };
   },
 
   async created() {
-    this.recipeList = await shoppingListService.getItems();
+    await shoppingListService.sync();
+    const allLists = shoppingListService.getAll();
+    // eslint-disable-next-line prefer-destructuring
+    this.shoppingList = allLists[0] || [];
     const filtered = [];
-    this.recipeList.forEach(
-      (recipe) => {
-        const ingredients = parseIngredients(recipe.ingredients);
-        ingredients.forEach((ingredient) => {
-          const foundIndex = filtered.findIndex(
-            (element) => element.ingredient.toLowerCase() === ingredient.ingredient.toLowerCase(),
-          );
-          if (foundIndex > 0) {
-            const old = filtered[foundIndex];
-            const oldAmount = Number.parseInt(old.amount, 10);
-            const newAmount = oldAmount + Number.parseInt(ingredient.amount, 10);
-            filtered[foundIndex] = {
-              ...old,
-              amount: newAmount,
-              recipe: old.recipe.concat(`  ${recipe.name}`),
-            };
-          } else {
-            filtered.push({
-              recipe: recipe.name,
-              ...ingredient,
-            });
-          }
-        });
+    this.shoppingList.items.forEach(
+      (ingredient) => {
+        const foundIndex = filtered.findIndex(
+          (element) => element.ingredient.toLowerCase() === ingredient.ingredient.toLowerCase(),
+        );
+        if (foundIndex >= 0) {
+          const old = filtered[foundIndex];
+          const oldAmount = Number.parseInt(old.amount, 10);
+          const newAmount = oldAmount + Number.parseInt(ingredient.amount, 10);
+          filtered[foundIndex] = {
+            ...old,
+            amount: newAmount,
+          };
+        } else {
+          filtered.push(ingredient);
+        }
       },
     );
     this.shoppingList = filtered;
@@ -71,8 +65,17 @@ export default {
 
   methods: {
     async clearShoppingList() {
-      await shoppingListService.removeAllItems();
-      this.recipeList = await shoppingListService.getItems();
+      const {
+        id, userId, isDeleted, lastUpdated,
+      } = this.ingredientsList;
+      const clearedList = {
+        id, userId, isDeleted, lastUpdated, items: [],
+      };
+
+      await shoppingListService.update(this.ingredientsList.id, clearedList);
+      const allLists = shoppingListService.getAll();
+      // eslint-disable-next-line prefer-destructuring
+      this.shoppingList = allLists[0];
     },
   },
 

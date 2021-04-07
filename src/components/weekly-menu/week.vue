@@ -11,10 +11,6 @@
             <v-col>
               <div style="float: right">
                 <span>Week: </span>
-                <v-btn @click="clearWeek">
-                  Clear
-                </v-btn>
-
                 <v-btn @click="saveWeek">
                   Save
                 </v-btn>
@@ -125,6 +121,9 @@
 <script>
 import draggable from 'vuedraggable';
 import { weekService, recipeService, shoppingListService } from '@/main';
+import parseIngredients from '@/services/ingredientParser';
+import generateEmptyWeek from '@/utils/generateEmptyWeek';
+import generateEmptyShoppingList from '@/utils/generateEmptyShoppingList';
 import day from './day.vue';
 
 export default {
@@ -137,48 +136,31 @@ export default {
     return {
       recipes: [],
       drag: false,
-      week: {
-        monday: {},
-        tuesday: {},
-        wednesday: {},
-        thursday: {},
-        friday: {},
-        saturday: {},
-        sunday: {},
-      },
+      week: generateEmptyWeek(),
     };
   },
 
   async created() {
-    this.recipes = await recipeService.getAllRecipes();
-    const weekFromServer = await weekService.getWeek();
+    await recipeService.sync();
+    await weekService.sync();
+    await shoppingListService.sync();
+    this.recipes = recipeService.getAll();
+    const weekFromServer = weekService.getAll()[0];
 
-    this.week = {
-      monday: weekFromServer.monday || {},
-      tuesday: weekFromServer.tuesday || {},
-      wednesday: weekFromServer.wednesday || {},
-      thursday: weekFromServer.thursday || {},
-      friday: weekFromServer.friday || {},
-      saturday: weekFromServer.saturday || {},
-      sunday: weekFromServer.sunday || {},
-    };
+    if (weekFromServer) {
+      this.week = weekFromServer;
+    } else {
+      this.week = generateEmptyWeek();
+    }
   },
 
   methods: {
-    clearWeek() {
-      this.week = {
-        monday: {},
-        tuesday: {},
-        wednesday: {},
-        thursday: {},
-        friday: {},
-        saturday: {},
-        sunday: {},
-      };
-      this.saveWeek(this.week);
-    },
     saveWeek() {
-      weekService.updateWeek(this.week);
+      if (weekService.getById(this.week.id)) {
+        weekService.update(this.week.id, this.week);
+      } else {
+        weekService.add(this.week);
+      }
     },
 
     createShoppingList() {
@@ -190,8 +172,15 @@ export default {
       recipesFromDinnertimes.push(Object.values(this.week.friday));
       recipesFromDinnertimes.push(Object.values(this.week.saturday));
       recipesFromDinnertimes.push(Object.values(this.week.sunday));
-      const recipes = recipesFromDinnertimes.flat().flat();
-      shoppingListService.addItems(recipes);
+      let recipes = recipesFromDinnertimes.flat().flat();
+      recipes = recipes.filter((recipe) => recipe !== null);
+      const shoppingList = shoppingListService.getAll()[0] || generateEmptyShoppingList();
+      recipes.forEach((recipe) => {
+        const ingredients = parseIngredients(recipe.ingredients);
+        shoppingList.items = [...shoppingList.items, ...ingredients];
+        shoppingList.lastUpdated = new Date();
+      });
+      shoppingListService.add(shoppingList);
     },
 
   },
