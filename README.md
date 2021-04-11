@@ -5,6 +5,10 @@
 yarn install
 ```
 
+Copy the `capacitor.config.json.example` to `capacitor.config.json` and correct the value for `server.url`.
+The standard vuejs deployment server is `<your-network-address>:8080`.
+
+
 ### Compiles and hot-reloads for development
 ```
 yarn serve
