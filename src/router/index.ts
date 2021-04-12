@@ -6,8 +6,30 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: () => import('../components/recipe-list.vue'),
+    name: 'login',
+    meta: {
+      name: '',
+      requiresAuth: false,
+    },
+    component: () => import('../components/login-view.vue'),
+    beforeEnter: (to: any, from: any, next: any) => {
+      if (window.localStorage.getItem('token') !== null) {
+        next('/menu');
+      } else {
+        next();
+      }
+    },
+    children: [
+      {
+        path: '',
+        component: () => import('@/components/auth/login.vue'),
+      },
+      {
+        path: '/register',
+        name: '',
+        component: () => import('@/components/auth/register.vue'),
+      },
+    ],
   },
   {
     path: '/recipe/:id?',
@@ -30,6 +52,11 @@ const routes = [
     name: 'shippingList',
     component: () => import('../components/shopping-list/list.vue'),
   },
+  // {
+  //   path: '/settings',
+  //   name: 'settings',
+  //   component: () => import('../components/settings.vue'),
+  // },
 ];
 
 const router = new VueRouter({

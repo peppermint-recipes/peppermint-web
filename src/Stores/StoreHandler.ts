@@ -32,7 +32,7 @@ export default class StoreHandler<Type extends Storable> {
       itemFromServer = await this.webStore.saveOne(itemCopy);
       this.items.push(itemFromServer);
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
 
     if (plattformIsNative) {
@@ -61,7 +61,7 @@ export default class StoreHandler<Type extends Storable> {
       updatedItemFromServer = await this.webStore.updateOne(id, item);
       this.items.push(updatedItemFromServer);
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
 
     if (plattformIsNative) {
@@ -88,7 +88,7 @@ export default class StoreHandler<Type extends Storable> {
     try {
       itemToDelete = await this.webStore.delete(id);
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
 
     this.items.push(itemToDelete);

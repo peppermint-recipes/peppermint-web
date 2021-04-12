@@ -39,5 +39,15 @@ export default {
     await recipeService.sync();
     this.recipes = recipeService.getAll();
   },
+
+  // async mounted() {
+  //   await recipeService.sync();
+  //   this.recipes = recipeService.getAll();
+  // },
+
+  // async updated() {
+  //   await recipeService.sync();
+  //   this.recipes = recipeService.getAll();
+  // },
 };
 </script>

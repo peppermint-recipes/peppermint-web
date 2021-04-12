@@ -83,6 +83,7 @@ export default {
     },
     onDinnerChanged(input) {
       const updatedDay = JSON.parse(JSON.stringify(this.value));
+
       updatedDay.dinner = input;
       this.day = updatedDay;
     },
