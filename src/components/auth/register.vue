@@ -121,7 +121,6 @@ export default {
           isSystemUser: false,
           isDisabled: false,
         };
-        const user = await userService.registerUser(newUser);
         const token = await userService.loginUser(newUser);
 
         cookieService.setUserAccessToken(token.token);
