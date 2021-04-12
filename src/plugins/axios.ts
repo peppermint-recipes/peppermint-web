@@ -21,9 +21,7 @@ export default class AxiosHttpClient {
     this.http.interceptors.request.use(
       (config) => {
         const conf = config;
-
         const token = `Bearer ${this.localStorageService.getUserAcessToken()}`;
-        console.log(token);
 
         if (token) {
           conf.headers.Authorization = token;
