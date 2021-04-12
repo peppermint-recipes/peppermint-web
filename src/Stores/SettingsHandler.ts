@@ -39,7 +39,7 @@ export default class SettingsHandler<Type extends Storable> {
       itemFromServer = await this.webStore.saveOne(item);
       this.currentSettings = item;
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
 
     if (plattformIsNative) {
