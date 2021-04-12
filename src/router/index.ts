@@ -7,18 +7,18 @@ const routes = [
   {
     path: '/',
     name: 'login',
-    // meta: {
-    //   name: '',
-    //   requiresAuth: false,
-    // },
+    meta: {
+      name: '',
+      requiresAuth: false,
+    },
     component: () => import('../components/login-view.vue'),
-    // beforeEnter: (to, from, next) => {
-    //     if (store.getters.jwt) {
-    //         next('/menu');
-    //     } else {
-    //         next();
-    //     }
-    // },
+    beforeEnter: (to: any, from: any, next: any) => {
+      if (window.localStorage.getItem('token') !== null) {
+        next('/menu');
+      } else {
+        next();
+      }
+    },
     children: [
       {
         path: '',

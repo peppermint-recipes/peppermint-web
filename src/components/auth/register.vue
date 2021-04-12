@@ -53,7 +53,6 @@
                   v-model="repeatedPassword"
                   label="Repeat Password"
                   type="password"
-                  :rules="rules"
                   @keydown="validateAndRegister"
                 />
               </v-card-text>
@@ -88,7 +87,6 @@
 
 <script>
 import { Validator } from '@/plugins/validation-rules';
-// import { postUser, loginUser } from '@/utils/api-connector';
 import { userService, cookieService } from '@/main';
 
 export default {
@@ -102,7 +100,7 @@ export default {
       password: '',
       repeatedPassword: '',
       rules: [
-        (value) => Validator.notEmpty(value),
+        (value) => Validator.notEmptyString(value),
         (value) => Validator.samePassword(this.password, value),
       ],
     };
@@ -121,7 +119,7 @@ export default {
           isSystemUser: false,
           isDisabled: false,
         };
-        const token = await userService.loginUser(newUser);
+        const token = await userService.registerUser(newUser);
 
         cookieService.setUserAccessToken(token.token);
 
