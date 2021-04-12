@@ -124,19 +124,17 @@ export default {
         const user = await userService.registerUser(newUser);
         const token = await userService.loginUser(newUser);
 
-        console.log(user);
         cookieService.setUserAccessToken(token.token);
 
         if (token) {
           this.$router.push('/recipes');
         }
       } catch (error) {
-        console.log(error);
-        // this.$notify({
-        //   title: 'Error',
-        //   type: 'error',
-        //   text: error.message,
-        // });
+        this.$notify({
+          title: 'Error',
+          type: 'error',
+          text: error.message,
+        });
       }
     },
 

@@ -41,7 +41,6 @@ export default class UserService {
       return response.data.user;
     } catch (error) {
       if (!error.response) {
-        console.log(error);
         throw new Error('couldn\'t create user');
       }
       throw new Error(error.response.data.status);
